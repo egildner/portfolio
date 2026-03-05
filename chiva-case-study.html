@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — Global CHIVA Program | Emily Gildner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --slate: #4a5568;
+    --mist: #f0f4f8;
+    --cream: #fafaf7;
+    --teal: #2a7f7f;
+    --teal-light: #e6f4f4;
+    --gold: #c9974a;
+    --rule: #e2e8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    color: white;
+    padding: 60px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.07);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.05);
+  }
+
+  .header-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .byline {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 560px;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 10px;
+  }
+
+  .meta-item {
+    padding: 18px 28px 18px 0;
+    margin-right: 28px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .meta-item:last-child { border-right: none; }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .meta-value {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  /* ── BODY ── */
+  .body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+  .section:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .callout p {
+    font-size: 14.5px;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── CHALLENGE GRID ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .challenge-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+
+  .challenge-card .icon {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .challenge-card p {
+    font-size: 13.5px;
+    color: var(--slate);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ── APPROACH LIST ── */
+  .approach-list {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .approach-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .approach-list li p {
+    margin: 0;
+    font-size: 14.5px;
+    padding-top: 2px;
+  }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .outcome-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+  }
+
+  .outcome-card .stat {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .outcome-card .stat-label {
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  /* ── SKILLS TAGS ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .tag {
+    background: var(--mist);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 13px;
+    border-radius: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── QUOTE ── */
+  .pullquote {
+    background: var(--ink);
+    color: white;
+    padding: 36px 40px;
+    border-radius: 12px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .pullquote::before {
+    content: '\201C';
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.1);
+    position: absolute;
+    top: 10px;
+    left: 28px;
+    line-height: 1;
+  }
+
+  .pullquote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.55;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 30px 40px;
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .footer-role {
+    font-size: 12px;
+    color: var(--slate);
+    margin-top: 2px;
+  }
+
+  .nav-hint {
+    font-size: 12px;
+    color: var(--slate);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .header-inner, .body, .footer { padding-left: 24px; padding-right: 24px; }
+    .challenge-grid { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .meta-strip { flex-wrap: wrap; }
+    .pullquote { padding: 28px 24px; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <p class="byline">Portfolio Case Study · Emily Gildner</p>
+    <h1>Unsticking a Stalled<br><em>Global Education Program</em></h1>
+    <p class="header-sub">How I brought structure, momentum, and educational integrity to an international medical training initiative that had been dormant for four years.</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Program</span>
+        <span class="meta-value">Global CHIVA</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Domain</span>
+        <span class="meta-value">Medical Education</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Platform</span>
+        <span class="meta-value">TalentLMS</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Audience</span>
+        <span class="meta-value">Global Healthcare Professionals</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- BODY -->
+<main class="body">
+
+  <!-- SITUATION -->
+  <section class="section">
+    <p class="section-label">01 · Situation</p>
+    <h2>A program in progress since 2021 — that hadn't progressed.</h2>
+    <p>CHIVA (Conservative and Hemodynamic treatment of Venous insufficiency in Outpatients) is a minimally invasive technique for treating varicose veins using ultrasound. It's clinically effective but underrecognized globally — and the physician SMEs behind the program knew it needed a structured educational pathway to change that.</p>
+    <p>The problem: by the time I joined, the program had been in development since 2020–2021 and had stalled. There was no functional eLearning, no assessment framework, and no clear delivery pathway. Motivated SMEs, but no educational architecture to work from.</p>
+    <div class="callout">
+      <p>My role: educational consultant embedded with a team of international physician SMEs — bridging the gap between clinical expertise and sound instructional design.</p>
+    </div>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section class="section">
+    <p class="section-label">02 · Challenges</p>
+    <h2>High stakes. High complexity. Low bandwidth.</h2>
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <span class="icon">🌐</span>
+        <p><strong>Cross-cultural SME collaboration</strong> — physician experts working across different languages, time zones, and clinical contexts.</p>
+      </div>
+      <div class="challenge-card">
+        <span class="icon">⏱</span>
+        <p><strong>Competing demands on SMEs</strong> — busy clinicians with limited time for curriculum development work.</p>
+      </div>
+      <div class="challenge-card">
+        <span class="icon">🏗</span>
+        <p><strong>No existing infrastructure</strong> — no modules, no assessment strategy, no LMS configuration.</p>
+      </div>
+      <div class="challenge-card">
+        <span class="icon">📋</span>
+        <p><strong>Scope that needed containing</strong> — a multi-tier program (Tiers 1–3) requiring phased planning to avoid scope creep.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="section">
+    <p class="section-label">03 · Approach</p>
+    <h2>Structure first. Momentum second.</h2>
+    <p>I came in as an educational consultant, not just a designer. That meant my first job was to build trust and shared language with SMEs who were experts in their clinical domain but new to structured learning design.</p>
+    <ul class="approach-list">
+      <li>
+        <span class="step-num">1</span>
+        <p><strong>Established an instructional design framework</strong> for the program — translating clinical expertise into learner-centered objectives and tiered competency progression.</p>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <p><strong>Provided ongoing assessment consultation</strong> — reviewing module content and providing feedback on assessment design, item quality, and alignment to learning objectives.</p>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <p><strong>Configured and built within TalentLMS</strong> — designing the eLearning experience so it was accessible and appropriate for an international clinical audience.</p>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <p><strong>Created a phased delivery roadmap</strong> — Modules 1–2 soft launched first; Modules 1–6 (Tier 1) on track for end of 2026, with Tiers 2 and 3 in pipeline.</p>
+      </li>
+      <li>
+        <span class="step-num">5</span>
+        <p><strong>Maintained forward momentum</strong> — by staying organized, proactive, and consistently translating "what SMEs know" into "what learners need."</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- PULLQUOTE -->
+  <div class="pullquote">
+    <p>They were impressed by my ability to lead so effortlessly and my knowledge of education and assessment — navigating a complex, international SME team with clarity and calm.</p>
+  </div>
+
+  <!-- OUTCOMES -->
+  <section class="section">
+    <p class="section-label">04 · Outcomes</p>
+    <h2>From stalled to in-market — with a clear path forward.</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <span class="stat">2</span>
+        <span class="stat-label">Modules soft launched after years of inactivity</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">6+</span>
+        <span class="stat-label">Modules scoped and in progress for Tier 1 delivery</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">Global</span>
+        <span class="stat-label">Reach — healthcare professionals across multiple countries</span>
+      </div>
+    </div>
+    <p style="margin-top:20px;">Beyond the deliverables: the program now has educational integrity it didn't have before. Assessment items are aligned to objectives. Content is structured for adult learners, not just clinical audiences. And the SME team has a partner who can translate their expertise into scalable education — instead of trying to build it alone.</p>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <p class="section-label">05 · Skills Demonstrated</p>
+    <h2>What this project required.</h2>
+    <div class="tags">
+      <span class="tag">Instructional Design</span>
+      <span class="tag">Assessment Development</span>
+      <span class="tag">SME Consulting & Training</span>
+      <span class="tag">LMS Configuration (TalentLMS)</span>
+      <span class="tag">Cross-functional Leadership</span>
+      <span class="tag">Program Management</span>
+      <span class="tag">Adult Learning Theory</span>
+      <span class="tag">Stakeholder Communication</span>
+      <span class="tag">Global Collaboration</span>
+      <span class="tag">Curriculum Architecture</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <div class="footer-name">Emily Gildner</div>
+    <div class="footer-role">Education & Training Program Manager · Medical Credentialing</div>
+  </div>
+  <div class="nav-hint">1 of 3 case studies</div>
+</footer>
+
+</body>
+</html>

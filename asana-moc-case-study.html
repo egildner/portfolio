@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — MOC Content Operations | Emily Gildner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --slate: #4a5568;
+    --mist: #f0f4f8;
+    --cream: #fafaf7;
+    --teal: #2a7f7f;
+    --teal-light: #e6f4f4;
+    --gold: #c9974a;
+    --rule: #e2e8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .header {
+    background: var(--ink);
+    color: white;
+    padding: 60px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.07);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.05);
+  }
+
+  .header-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .byline {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 560px;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 10px;
+  }
+
+  .meta-item {
+    padding: 18px 28px 18px 0;
+    margin-right: 28px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .meta-item:last-child { border-right: none; }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .meta-value {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  .body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  .section {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+  .section:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  .callout {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .callout p {
+    font-size: 14.5px;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* BEFORE / AFTER */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .ba-card {
+    border-radius: 10px;
+    padding: 22px 22px;
+  }
+
+  .ba-card.before {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+  }
+
+  .ba-card.after {
+    background: var(--teal-light);
+    border: 1px solid #b2dfdf;
+  }
+
+  .ba-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .ba-card.before .ba-label { color: #c53030; }
+  .ba-card.after .ba-label { color: var(--teal); }
+
+  .ba-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ba-card ul li {
+    font-size: 13.5px;
+    color: var(--slate);
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .ba-card.before ul li::before {
+    content: '✕';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    color: #c53030;
+    top: 2px;
+  }
+
+  .ba-card.after ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    color: var(--teal);
+    top: 2px;
+  }
+
+  .approach-list {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .approach-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .approach-list li p {
+    margin: 0;
+    font-size: 14.5px;
+    padding-top: 2px;
+  }
+
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .outcome-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+  }
+
+  .outcome-card .stat {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .outcome-card .stat-label {
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .tag {
+    background: var(--mist);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 13px;
+    border-radius: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .pullquote {
+    background: var(--ink);
+    color: white;
+    padding: 36px 40px;
+    border-radius: 12px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .pullquote::before {
+    content: '\201C';
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.1);
+    position: absolute;
+    top: 10px;
+    left: 28px;
+    line-height: 1;
+  }
+
+  .pullquote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.55;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 30px 40px;
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .footer-role {
+    font-size: 12px;
+    color: var(--slate);
+    margin-top: 2px;
+  }
+
+  .nav-hint {
+    font-size: 12px;
+    color: var(--slate);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 600px) {
+    .header-inner, .body, .footer { padding-left: 24px; padding-right: 24px; }
+    .before-after { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .meta-strip { flex-wrap: wrap; }
+    .pullquote { padding: 28px 24px; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <p class="byline">Portfolio Case Study · Emily Gildner</p>
+    <h1>Building the Operations System<br><em>Behind the Content</em></h1>
+    <p class="header-sub">How I designed a workflow and data infrastructure from scratch that gave a credentialing team real-time visibility into item quality, timelines, and bottlenecks.</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Program</span>
+        <span class="meta-value">MOC Content Development</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Tool</span>
+        <span class="meta-value">Asana</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Scope</span>
+        <span class="meta-value">ARDMS & APCA Specialties</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Impact</span>
+        <span class="meta-value">Team-wide + Cross-org Adoption</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="body">
+
+  <section class="section">
+    <p class="section-label">01 · Situation</p>
+    <h2>No dashboard. No visibility. No system.</h2>
+    <p>The MOC (Maintenance of Certification) content development process was running on manual effort — tracking item quality and timelines meant digging into the item bank by hand, every single time someone had a question. There was no centralized place to see where things stood, where things were stuck, or whether OKRs were on track.</p>
+    <p>For a team responsible for delivering high-quality assessment items across multiple specialties, this wasn't sustainable. It meant answering the same questions repeatedly, losing time to administrative overhead, and having no data to drive process improvement.</p>
+    <div class="callout">
+      <p>My role: sole designer and builder of the entire project management infrastructure — from field architecture to automation to team adoption.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">02 · Before & After</p>
+    <h2>What changed when the system existed.</h2>
+    <div class="before-after">
+      <div class="ba-card before">
+        <span class="ba-label">Before</span>
+        <ul>
+          <li>Manual item counts from the bank on request</li>
+          <li>No visibility into review stage or bottlenecks</li>
+          <li>OKR tracking was inconsistent and time-consuming</li>
+          <li>SME training gaps had no data backing</li>
+          <li>No repeatable workflow for item development</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <span class="ba-label">After</span>
+        <ul>
+          <li>Real-time dashboard showing item status at a glance</li>
+          <li>Clear bottleneck identification at each pipeline stage</li>
+          <li>OKR data collected automatically as work progressed</li>
+          <li>Quality patterns surfaced to inform SME training</li>
+          <li>Templated, duplicatable workflow for each specialty</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">03 · Approach</p>
+    <h2>Built for the team, not just for the data.</h2>
+    <p>The challenge with Asana isn't technical — it's architectural. The tool is only as useful as the thinking behind it. I approached this as a systems design problem: what does this team actually need to see, and how do we make sure the data gets captured without adding burden?</p>
+    <ul class="approach-list">
+      <li>
+        <span class="step-num">1</span>
+        <p><strong>Mapped the existing workflow</strong> — identified every stage of the item development process, from initial SME writing through review, revision, and final approval.</p>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <p><strong>Designed the field architecture</strong> — determined which data points were essential for quality tracking, timeline reporting, and OKR visibility. Avoided over-engineering.</p>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <p><strong>Built the project dashboard and templates</strong> — created reusable project templates for each specialty (ARDMS and APCA) so new cycles could be spun up without rebuilding from scratch.</p>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <p><strong>Automated where possible</strong> — reduced manual data entry by setting up rules and triggers within Asana's limitations to move tasks and flag status changes automatically.</p>
+      </li>
+      <li>
+        <span class="step-num">5</span>
+        <p><strong>Led team adoption</strong> — trained the MOC team, CCS staff, and SMEs on the system and iterated based on their feedback to keep it usable, not just functional.</p>
+      </li>
+    </ul>
+  </section>
+
+  <div class="pullquote">
+    <p>My manager and director were bought in immediately — not because it was impressive, but because it answered questions they'd been asking for years.</p>
+  </div>
+
+  <section class="section">
+    <p class="section-label">04 · Outcomes</p>
+    <h2>Still running. Still growing. Still spreading.</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <span class="stat">Live</span>
+        <span class="stat-label">System still in active use across the MOC team</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">2+</span>
+        <span class="stat-label">Other teams beginning to adopt the same framework</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">Zero</span>
+        <span class="stat-label">Manual item counts — data is now always accessible</span>
+      </div>
+    </div>
+    <p style="margin-top:20px;">Beyond the tool itself: this project demonstrated that operations infrastructure is a form of educational leadership. When content teams can see their work clearly, they make better decisions about item quality, SME development, and resource allocation. The system didn't just save time — it made the team smarter.</p>
+  </section>
+
+  <section class="section">
+    <p class="section-label">05 · Skills Demonstrated</p>
+    <h2>What this project required.</h2>
+    <div class="tags">
+      <span class="tag">Workflow Design</span>
+      <span class="tag">Process Improvement</span>
+      <span class="tag">Asana (Advanced)</span>
+      <span class="tag">Data Architecture</span>
+      <span class="tag">OKR Tracking</span>
+      <span class="tag">Assessment Operations</span>
+      <span class="tag">Systems Thinking</span>
+      <span class="tag">Team Training & Adoption</span>
+      <span class="tag">Automation (No-code)</span>
+      <span class="tag">Cross-functional Stakeholder Buy-in</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div>
+    <div class="footer-name">Emily Gildner</div>
+    <div class="footer-role">Education & Training Program Manager · Medical Credentialing</div>
+  </div>
+  <div class="nav-hint">2 of 3 case studies</div>
+</footer>
+
+</body>
+</html>

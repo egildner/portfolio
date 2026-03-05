@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — CCS Onboarding Program | Emily Gildner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --slate: #4a5568;
+    --mist: #f0f4f8;
+    --cream: #fafaf7;
+    --teal: #2a7f7f;
+    --teal-light: #e6f4f4;
+    --gold: #c9974a;
+    --rule: #e2e8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .header {
+    background: var(--ink);
+    color: white;
+    padding: 60px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.07);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.05);
+  }
+
+  .header-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .byline {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 560px;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 10px;
+  }
+
+  .meta-item {
+    padding: 18px 28px 18px 0;
+    margin-right: 28px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .meta-item:last-child { border-right: none; }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .meta-value {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  .body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  .section {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  .callout {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .callout p {
+    font-size: 14.5px;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* CONSTRAINT CALLOUT — highlights the design challenge */
+  .constraint-block {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin: 24px 0;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .constraint-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .constraint-block p {
+    font-size: 14.5px;
+    color: var(--slate);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .constraint-block strong {
+    color: var(--ink);
+  }
+
+  /* PROGRAM COMPONENTS */
+  .components-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .component-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 18px 18px;
+    text-align: center;
+  }
+
+  .component-card .c-icon {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .component-card .c-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .component-card .c-desc {
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  .approach-list {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .approach-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .approach-list li p {
+    margin: 0;
+    font-size: 14.5px;
+    padding-top: 2px;
+  }
+
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .outcome-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+  }
+
+  .outcome-card .stat {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .outcome-card .stat-label {
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .tag {
+    background: var(--mist);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 13px;
+    border-radius: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .pullquote {
+    background: var(--ink);
+    color: white;
+    padding: 36px 40px;
+    border-radius: 12px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .pullquote::before {
+    content: '\201C';
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.1);
+    position: absolute;
+    top: 10px;
+    left: 28px;
+    line-height: 1;
+  }
+
+  .pullquote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.55;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 30px 40px;
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .footer-role {
+    font-size: 12px;
+    color: var(--slate);
+    margin-top: 2px;
+  }
+
+  .nav-hint {
+    font-size: 12px;
+    color: var(--slate);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 600px) {
+    .header-inner, .body, .footer { padding-left: 24px; padding-right: 24px; }
+    .components-grid { grid-template-columns: 1fr 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .meta-strip { flex-wrap: wrap; }
+    .pullquote { padding: 28px 24px; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <p class="byline">Portfolio Case Study · Emily Gildner</p>
+    <h1>Designing an Onboarding Program<br><em>Without a Roadmap</em></h1>
+    <p class="header-sub">How I built a structured, scalable onboarding experience for a specialized clinical role — without insider access, without prior documentation, and without a playbook to follow.</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Program</span>
+        <span class="meta-value">CCS Onboarding</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Audience</span>
+        <span class="meta-value">Clinical Content Specialists</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Format</span>
+        <span class="meta-value">eLearning + Docs + Video</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Tool</span>
+        <span class="meta-value">Asana (Templated)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="body">
+
+  <section class="section">
+    <p class="section-label">01 · Situation</p>
+    <h2>A specialized role. No onboarding plan. No one to ask.</h2>
+    <p>Clinical Content Specialists (CCS) are a highly specialized hire — they sit at the intersection of clinical knowledge and assessment development. When a new CCS joins, there's a steep learning curve: understanding the organization, mastering the content development process, and getting up to speed on standards and tools that most people outside the team have never touched.</p>
+    <p>The problem: there was no formal onboarding program. No structured first week. No clear sequence of what to learn, when, or how. And because the team operates in silos, there was limited ability to pull in existing CCS staff to fill the gaps informally.</p>
+    <div class="callout">
+      <p>My role: sole designer and builder — responsible for scoping, structuring, and producing the entire onboarding program before the first hire went through it.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">02 · The Real Design Challenge</p>
+    <h2>Building for a role I wasn't in — in an org that works in silos.</h2>
+
+    <div class="constraint-block">
+      <span class="constraint-icon">🔒</span>
+      <p><strong>The core constraint:</strong> I wasn't a CCS and couldn't easily consult with those who were. That meant I had to work from first principles — using instructional design expertise, role analysis, and what I could access about the work itself to reverse-engineer what a new hire actually needs to know in week one, month one, and beyond.</p>
+    </div>
+
+    <p>This is a common situation in L&D: you're asked to design for a role or audience you can't fully access. The answer isn't to wait for perfect information — it's to build a rigorous structure that holds even when content details are filled in later. That's what I did.</p>
+  </section>
+
+  <section class="section">
+    <p class="section-label">03 · What I Built</p>
+    <h2>A structured, templated program built to scale.</h2>
+    <p>The program was organized into work packages — sequenced learning bundles that balanced flexibility with non-negotiable foundational content. Each package combined multiple content types so new hires could learn in the format that suited the material.</p>
+
+    <div class="components-grid">
+      <div class="component-card">
+        <span class="c-icon">🎓</span>
+        <span class="c-label">eLearning Modules</span>
+        <span class="c-desc">Core concepts and standards delivered as structured self-paced content</span>
+      </div>
+      <div class="component-card">
+        <span class="c-icon">📄</span>
+        <span class="c-label">Reference Documents</span>
+        <span class="c-desc">Job aids, process guides, and role-specific reference materials</span>
+      </div>
+      <div class="component-card">
+        <span class="c-icon">🎥</span>
+        <span class="c-label">Video Walkthroughs</span>
+        <span class="c-desc">Demonstrations of tools, systems, and workflows in context</span>
+      </div>
+    </div>
+
+    <ul class="approach-list" style="margin-top: 28px;">
+      <li>
+        <span class="step-num">1</span>
+        <p><strong>Conducted a role and task analysis</strong> — mapped what a CCS needs to know, do, and understand to be effective, structured by priority and time-to-competency.</p>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <p><strong>Designed the work package sequence</strong> — organized content into a logical week-by-week progression, balancing structured learning with applied practice time.</p>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <p><strong>Built the Asana project template</strong> — created a fully templated, duplicatable onboarding project so every new CCS hire gets the same consistent experience with minimal setup effort.</p>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <p><strong>Incorporated time estimates</strong> — each work package includes estimated time to complete, giving managers visibility into onboarding load and helping new hires pace themselves.</p>
+      </li>
+      <li>
+        <span class="step-num">5</span>
+        <p><strong>Designed for future iteration</strong> — the template structure makes it easy to update content, add modules, or adapt the program as the role evolves.</p>
+      </li>
+    </ul>
+  </section>
+
+  <div class="pullquote">
+    <p>The template's time estimates and clear layout made the invisible visible — stakeholders could finally see what onboarding actually takes, not just assume it happens.</p>
+  </div>
+
+  <section class="section">
+    <p class="section-label">04 · Outcomes</p>
+    <h2>A program ready to run — and ready to repeat.</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <span class="stat">1st</span>
+        <span class="stat-label">Formal onboarding program ever built for this role</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">∞</span>
+        <span class="stat-label">Reusable — template duplicates for every new hire</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">Clear</span>
+        <span class="stat-label">Time visibility for managers and new hires alike</span>
+      </div>
+    </div>
+    <p style="margin-top:20px;">The most important outcome isn't a metric — it's that a new CCS now has a structured, dignified start. They know what to do, in what order, and roughly how long it will take. That clarity reduces anxiety, accelerates ramp time, and signals organizational respect for the role. That's what good onboarding design does.</p>
+  </section>
+
+  <section class="section">
+    <p class="section-label">05 · Skills Demonstrated</p>
+    <h2>What this project required.</h2>
+    <div class="tags">
+      <span class="tag">Onboarding Design</span>
+      <span class="tag">Task & Role Analysis</span>
+      <span class="tag">Instructional Sequencing</span>
+      <span class="tag">eLearning Development</span>
+      <span class="tag">Asana Project Management</span>
+      <span class="tag">Template Architecture</span>
+      <span class="tag">Adult Learning Theory</span>
+      <span class="tag">Independent Problem-Solving</span>
+      <span class="tag">Scalable Systems Design</span>
+      <span class="tag">Stakeholder Communication</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div>
+    <div class="footer-name">Emily Gildner</div>
+    <div class="footer-role">Education & Training Program Manager · Medical Credentialing</div>
+  </div>
+  <div class="nav-hint">3 of 3 case studies</div>
+</footer>
+
+</body>
+</html>

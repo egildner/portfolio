@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — Trellis AI Bot | Emily Gildner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --slate: #4a5568;
+    --mist: #f0f4f8;
+    --cream: #fafaf7;
+    --teal: #2a7f7f;
+    --teal-light: #e6f4f4;
+    --gold: #c9974a;
+    --gold-light: #fdf3e7;
+    --rule: #e2e8f0;
+    --ai: #4a3f7f;
+    --ai-light: #f0eeff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    color: white;
+    padding: 60px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.07);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(74,63,127,0.25);
+  }
+
+  /* AI accent circle */
+  .header-accent {
+    position: absolute;
+    top: 20%; right: 6%;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 1px solid rgba(74,63,127,0.3);
+    pointer-events: none;
+  }
+
+  .header-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .byline {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(74,63,127,0.35);
+    border: 1px solid rgba(74,63,127,0.5);
+    color: #c4b8ff;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 580px;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 10px;
+  }
+
+  .meta-item {
+    padding: 18px 28px 18px 0;
+    margin-right: 28px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .meta-item:last-child { border-right: none; }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .meta-value {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  /* ── BODY ── */
+  .body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  .section {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+  .section:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .callout p {
+    font-size: 14.5px;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── AI CALLOUT ── */
+  .ai-callout {
+    background: var(--ai-light);
+    border-left: 3px solid var(--ai);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .ai-callout p {
+    font-size: 14.5px;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── TRELLIS CAPABILITIES GRID ── */
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .cap-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .cap-card .cap-icon {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .cap-card .cap-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .cap-card p {
+    font-size: 13px;
+    color: var(--slate);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* ── APPROACH LIST ── */
+  .approach-list {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .approach-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .approach-list li p {
+    margin: 0;
+    font-size: 14.5px;
+    padding-top: 2px;
+  }
+
+  /* ── INSIGHT BLOCK ── */
+  .insight-block {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin: 28px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .insight-block::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 1px solid rgba(74,63,127,0.3);
+  }
+
+  .insight-block .insight-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c4b8ff;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .insight-block p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .outcome-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+  }
+
+  .outcome-card .stat {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .outcome-card .stat-label {
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  /* ── TAGS ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .tag {
+    background: var(--mist);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 13px;
+    border-radius: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .tag.ai-tag {
+    background: var(--ai-light);
+    color: var(--ai);
+  }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    background: var(--ink);
+    color: white;
+    padding: 36px 40px;
+    border-radius: 12px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .pullquote::before {
+    content: '\201C';
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.1);
+    position: absolute;
+    top: 10px;
+    left: 28px;
+    line-height: 1;
+  }
+
+  .pullquote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.55;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 30px 40px;
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .footer-role {
+    font-size: 12px;
+    color: var(--slate);
+    margin-top: 2px;
+  }
+
+  .nav-hint {
+    font-size: 12px;
+    color: var(--slate);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .header-inner, .body, .footer { padding-left: 24px; padding-right: 24px; }
+    .capabilities-grid { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .meta-strip { flex-wrap: wrap; }
+    .pullquote { padding: 28px 24px; }
+    .insight-block { padding: 24px 22px; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-accent"></div>
+  <div class="header-inner">
+    <p class="byline">Portfolio Case Study · Emily Gildner</p>
+    <div class="ai-badge">✦ AI Initiative · Studio 22</div>
+    <h1>Designing an AI Bot<br><em>to Guide How L&D Works</em></h1>
+    <p class="header-sub">How I designed Trellis — an AI-powered instructional design assistant — and discovered that the real power of AI comes from teams building together, not in silos.</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Bot</span>
+        <span class="meta-value">Trellis v1.0</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Initiative</span>
+        <span class="meta-value">Studio 22 · Inteleos</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Platform</span>
+        <span class="meta-value">Perplexity Enterprise</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Users</span>
+        <span class="meta-value">L&D Team (3 ETPMs)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- BODY -->
+<main class="body">
+
+  <!-- SITUATION -->
+  <section class="section">
+    <p class="section-label">01 · Situation</p>
+    <h2>Hand-selected for an org-wide AI initiative — with no playbook to follow.</h2>
+    <p>Studio 22 was a small, selective internal working group at Inteleos — fewer than 10 people across the organization — tasked with building AI tools to solve real operational problems. I was selected as one of the L&D representatives.</p>
+    <p>The challenge I focused on: the L&D team's certificate program development process was complex, cross-functional, and compliance-heavy. It required constant coordination across Instructional Design, Compliance, Product, and SMEs — and there was no shared intelligence layer to guide the work, catch gaps early, or keep everyone aligned.</p>
+    <div class="callout">
+      <p>My question: What if an AI bot could act as an embedded instructional design consultant — guiding the process, surfacing gaps, and keeping teams moving forward?</p>
+    </div>
+  </section>
+
+  <!-- WHAT I BUILT -->
+  <section class="section">
+    <p class="section-label">02 · What I Built</p>
+    <h2>Trellis — an AI bot that thinks like an instructional designer.</h2>
+    <p>Trellis is a structured AI assistant built to guide the full lifecycle of certificate program development — from needs analysis through ANAB accreditation documentation. It's not a generic chatbot. It operates with phase-awareness, institutional knowledge, and a defined set of behaviors designed specifically for the L&D context at Inteleos.</p>
+
+    <div class="capabilities-grid">
+      <div class="cap-card">
+        <span class="cap-icon">🗺</span>
+        <span class="cap-title">Phase-Based Guidance</span>
+        <p>Tracks where a project is in the development lifecycle and provides context-appropriate support at each stage.</p>
+      </div>
+      <div class="cap-card">
+        <span class="cap-icon">📋</span>
+        <span class="cap-title">11-Template System</span>
+        <p>Provisions the right template for the right moment — from JTA frameworks to assessment blueprints to ANAB documentation.</p>
+      </div>
+      <div class="cap-card">
+        <span class="cap-icon">⚠️</span>
+        <span class="cap-title">Gap Identification</span>
+        <p>Proactively flags missing information, names which department can provide it, and explains the timeline impact.</p>
+      </div>
+      <div class="cap-card">
+        <span class="cap-icon">✅</span>
+        <span class="cap-title">Readiness Checks</span>
+        <p>Assesses whether a project is truly ready to move to the next phase — not just whether it feels ready.</p>
+      </div>
+      <div class="cap-card">
+        <span class="cap-icon">🔗</span>
+        <span class="cap-title">Compliance Integration</span>
+        <p>Built-in awareness of ANAB E2659 and 17024 standards — surfaces documentation requirements before they become blockers.</p>
+      </div>
+      <div class="cap-card">
+        <span class="cap-icon">🤝</span>
+        <span class="cap-title">Cross-Functional Handoffs</span>
+        <p>Generates handoff checklists and clarifies what each team (L&D, Compliance, Product) needs to contribute at each stage.</p>
+      </div>
+    </div>
+
+    <div class="ai-callout">
+      <p>Trellis provides structure, not content — it guides the process, defers to clinical SMEs on expertise, and escalates compliance questions to the people who own them. It was designed to augment human judgment, not replace it.</p>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="section">
+    <p class="section-label">03 · How I Designed It</p>
+    <h2>Instructional design applied to AI behavior.</h2>
+    <p>Building Trellis required the same thinking I apply to any learning design problem: who is the user, what do they need at each stage, where do they typically get stuck, and what does "good" look like at every step?</p>
+    <ul class="approach-list">
+      <li>
+        <span class="step-num">1</span>
+        <p><strong>Mapped the full program development workflow</strong> — identified every phase from needs analysis through launch, and documented what decisions, templates, and stakeholders are involved at each stage.</p>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <p><strong>Defined the bot's persona and boundaries</strong> — Trellis has a clear identity, a defined scope, and graceful handoff language for moments where it should defer to human expertise.</p>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <p><strong>Built a 11-template provisioning system</strong> — each template is tied to a phase and purpose, so Trellis delivers the right tool at the right moment rather than overwhelming users with options.</p>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <p><strong>Designed contextual triggers</strong> — Trellis activates specific behaviors based on what the user asks, including timeline generation, Asana project setup, and compliance gap flagging.</p>
+      </li>
+      <li>
+        <span class="step-num">5</span>
+        <p><strong>Built quality self-checks into the system</strong> — before providing timelines, templates, or gap flags, Trellis runs internal checks to ensure its output is grounded and appropriate.</p>
+      </li>
+      <li>
+        <span class="step-num">6</span>
+        <p><strong>Deployed to the L&D team and iterated</strong> — Trellis v1.0 launched January 2026 for 3 ETPMs and is actively in use for cross-functional certificate program development.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- INSIGHT -->
+  <div class="insight-block">
+    <span class="insight-label">✦ The Bigger Takeaway</span>
+    <p>Siloed bots solve siloed problems. The real unlock came from recognizing that when teams build AI tools together — across departments, not just within them — the outcomes are exponentially more powerful. That's not just a lesson about AI. It's a lesson about how organizations learn.</p>
+  </div>
+
+  <!-- OUTCOMES -->
+  <section class="section">
+    <p class="section-label">04 · Outcomes</p>
+    <h2>A working tool, a strategic insight, and a model for what's next.</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <span class="stat">Live</span>
+        <span class="stat-label">Trellis v1.0 actively in use by the L&D team</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">11</span>
+        <span class="stat-label">Templates provisioned across the full program development lifecycle</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">Cross-<br>org</span>
+        <span class="stat-label">Insight — collaborative AI builds outperform siloed ones</span>
+      </div>
+    </div>
+    <p style="margin-top:20px;">Trellis demonstrated that AI in L&D isn't about replacing instructional designers — it's about giving them a system that holds the complexity of the process so they can focus on the work that requires human judgment. And the Studio 22 experience surfaced something even more valuable: a vision for how organizations should approach AI development — together, not in isolation.</p>
+  </section>
+
+  <!-- PULLQUOTE -->
+  <div class="pullquote">
+    <p>The most powerful thing Studio 22 taught me isn't how to build a bot. It's that when people stop working in silos and start building AI together, something much bigger becomes possible.</p>
+  </div>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <p class="section-label">05 · Skills Demonstrated</p>
+    <h2>What this project required.</h2>
+    <div class="tags">
+      <span class="tag ai-tag">AI Prompt Design</span>
+      <span class="tag ai-tag">Bot Architecture</span>
+      <span class="tag ai-tag">Perplexity Enterprise</span>
+      <span class="tag">Instructional Systems Design</span>
+      <span class="tag">Workflow Mapping</span>
+      <span class="tag">Compliance Integration</span>
+      <span class="tag">Template Design</span>
+      <span class="tag">Cross-functional Thinking</span>
+      <span class="tag">Change Leadership</span>
+      <span class="tag">L&D Operations</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <div class="footer-name">Emily Gildner</div>
+    <div class="footer-role">Education & Training Program Manager · Medical Credentialing</div>
+  </div>
+  <div class="nav-hint">4 of 4 case studies</div>
+</footer>
+
+</body>
+</html>
