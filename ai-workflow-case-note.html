@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Workflow Case Note | Emily Gildner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --slate: #4a5568;
+    --mist: #f0f4f8;
+    --cream: #fafaf7;
+    --teal: #2a7f7f;
+    --teal-light: #e6f4f4;
+    --teal-mid: #1d6060;
+    --gold: #c9974a;
+    --rule: #e2e8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); font-size: 16px; line-height: 1.7; }
+
+  /* HEADER */
+  .header { background: var(--ink); color: white; padding: 60px 0 0; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.07); }
+  .header::after { content: ''; position: absolute; bottom: 40px; left: -40px; width: 180px; height: 180px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.05); }
+  .header-inner { max-width: 780px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 1; }
+  .byline { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; line-height: 1.15; color: white; margin-bottom: 16px; }
+  .header h1 em { font-style: italic; color: rgba(255,255,255,0.65); }
+  .header-sub { font-size: 15px; color: rgba(255,255,255,0.55); font-weight: 300; margin-bottom: 40px; max-width: 560px; }
+  .meta-strip { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 10px; }
+  .meta-item { padding: 18px 28px 18px 0; margin-right: 28px; border-right: 1px solid rgba(255,255,255,0.08); }
+  .meta-item:last-child { border-right: none; }
+  .meta-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); display: block; margin-bottom: 4px; }
+  .meta-value { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 500; }
+
+  /* BODY */
+  .body { max-width: 780px; margin: 0 auto; padding: 60px 40px 80px; }
+
+  .section { margin-bottom: 56px; opacity: 0; transform: translateY(18px); animation: fadeUp 0.5s ease forwards; }
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+  .section:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .section-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); font-weight: 500; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+  .section h2 { font-family: 'DM Serif Display', serif; font-size: 1.55rem; font-weight: 400; color: var(--ink); margin-bottom: 16px; line-height: 1.25; }
+  .section p { font-size: 15px; color: var(--slate); line-height: 1.8; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .callout { background: var(--teal-light); border-left: 3px solid var(--teal); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .callout p { font-size: 14.5px; color: var(--ink); font-style: italic; margin: 0; }
+
+  /* WORKFLOW PIPELINE */
+  .pipeline { display: flex; flex-direction: column; gap: 0; margin-top: 24px; }
+  .pipeline-step { display: grid; grid-template-columns: 28px 1fr; gap: 18px; position: relative; }
+  .pipeline-step:not(:last-child)::after { content: ''; position: absolute; left: 13px; top: 38px; bottom: -12px; width: 1px; background: var(--rule); }
+  .step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: white; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; z-index: 1; }
+  .step-body { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; }
+  .step-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .step-desc { font-size: 13.5px; color: var(--slate); line-height: 1.65; margin-bottom: 10px; }
+  .step-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag { background: var(--mist); color: var(--slate); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 12px; }
+  .tool-tag.ai { background: var(--teal-light); color: var(--teal-mid); }
+  .step-time { font-size: 11px; font-weight: 500; color: var(--teal); margin-top: 8px; display: block; }
+
+  /* BEFORE/AFTER */
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+  .ba-card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 20px; }
+  .ba-label { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+  .ba-label.before { color: var(--slate); }
+  .ba-label.after { color: var(--teal); }
+  .ba-card ul { list-style: none; padding: 0; }
+  .ba-card ul li { font-size: 13.5px; color: var(--slate); padding: 5px 0; border-bottom: 1px solid var(--rule); line-height: 1.55; }
+  .ba-card ul li:last-child { border-bottom: none; }
+  .ba-card ul li::before { content: '· '; color: var(--teal); font-weight: 500; }
+
+  /* HUMAN REVIEW GATES */
+  .gate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+  .gate-card { background: white; border: 1px solid var(--rule); border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; padding: 16px 18px; }
+  .gate-card .gate-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
+  .gate-card p { font-size: 13px; color: var(--slate); margin: 0; line-height: 1.6; }
+
+  /* OUTCOMES */
+  .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+  .outcome-card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 22px 20px; text-align: center; }
+  .outcome-card .stat { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--teal); display: block; margin-bottom: 6px; line-height: 1; }
+  .outcome-card .stat-label { font-size: 12px; color: var(--slate); line-height: 1.4; }
+
+  /* PROMPT CALLOUT */
+  .prompt-block { background: var(--ink); border-radius: 10px; padding: 22px 24px; margin: 20px 0; }
+  .prompt-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 10px; display: block; }
+  .prompt-text { font-family: 'DM Sans', monospace; font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+  .prompt-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 10px; font-style: italic; }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .tag { background: var(--mist); color: var(--ink); font-size: 12px; font-weight: 500; padding: 5px 13px; border-radius: 20px; }
+
+  /* PULLQUOTE */
+  .pullquote { background: var(--ink); color: white; padding: 36px 40px; border-radius: 12px; margin: 40px 0; position: relative; }
+  .pullquote::before { content: '\201C'; font-family: 'DM Serif Display', serif; font-size: 5rem; color: rgba(255,255,255,0.1); position: absolute; top: 10px; left: 28px; line-height: 1; }
+  .pullquote p { font-family: 'DM Serif Display', serif; font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.9); line-height: 1.55; margin: 0; position: relative; z-index: 1; }
+
+  /* FOOTER */
+  .footer { border-top: 1px solid var(--rule); padding: 30px 40px; max-width: 780px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--ink); }
+  .footer-role { font-size: 12px; color: var(--slate); margin-top: 2px; }
+  .nav-hint { font-size: 12px; color: var(--slate); }
+
+  @media (max-width: 600px) {
+    .header-inner, .body, .footer { padding-left: 24px; padding-right: 24px; }
+    .before-after, .gate-grid { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .meta-strip { flex-wrap: wrap; }
+    .pullquote { padding: 28px 24px; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <p class="byline">AI Workflow Case Note · Emily Gildner</p>
+    <h1>How I Use AI to Design<br><em>Better Content, Faster</em></h1>
+    <p class="header-sub">A documented workflow showing how I integrate AI tools into instructional design — with the prompt strategy, human review checkpoints, and time math behind it.</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Primary Tools</span>
+        <span class="meta-value">Claude · Perplexity · Synthesia</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Applied To</span>
+        <span class="meta-value">eLearning + Assessment</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Time Savings</span>
+        <span class="meta-value">~40% per module</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="body">
+
+  <!-- CONTEXT -->
+  <section class="section">
+    <p class="section-label">01 · Context</p>
+    <h2>The problem with "I use AI tools."</h2>
+    <p>Most L&D professionals say they use AI. Few have a documented, repeatable process for how. The difference matters — both for quality control and for what you can actually teach others to do.</p>
+    <p>This case note documents the AI-assisted instructional design workflow I've developed across projects at Inteleos, including the Global CHIVA Program and internal eLearning builds. It is not a tool list. It is a process — with defined inputs, deliberate prompting, and human judgment at every critical gate.</p>
+    <div class="callout">
+      <p>Principle: AI accelerates the work I already know how to do. It does not replace the instructional design expertise behind it. Every output is reviewed, reshaped, and owned by me before it touches a learner.</p>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section class="section">
+    <p class="section-label">02 · The Workflow</p>
+    <h2>Six stages. Defined inputs and outputs at each.</h2>
+
+    <div class="pipeline">
+
+      <div class="pipeline-step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Content intake and context-setting</div>
+          <p class="step-desc">Before touching any AI tool, I define the learning objective, audience, and constraints. I pull in raw SME content — slide decks, clinical notes, recorded meetings — and create a brief that anchors the entire build. This stage is human-only.</p>
+          <div class="step-tools">
+            <span class="tool-tag">Learning objective framework</span>
+            <span class="tool-tag">SME source materials</span>
+            <span class="tool-tag">Audience analysis</span>
+          </div>
+          <span class="step-time">Time: 30–60 min · No AI</span>
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Research and source verification</div>
+          <p class="step-desc">I use Perplexity Enterprise to rapidly surface supporting evidence, current clinical or domain references, and fill knowledge gaps in SME-provided material. Every claim that will inform learner-facing content gets verified here before it moves forward.</p>
+          <div class="step-tools">
+            <span class="tool-tag ai">Perplexity Enterprise</span>
+            <span class="tool-tag">Source verification checklist</span>
+          </div>
+          <span class="step-time">Time: 20–45 min · ~60% AI-assisted</span>
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">Content drafting with structured prompts</div>
+          <p class="step-desc">I use Claude to draft module content — narration scripts, scenario setups, and learning checks — using a layered prompting approach. I do not use a single "write me a module" prompt. Each component gets its own focused input, with the learning objective and audience context baked in.</p>
+          <div class="step-tools">
+            <span class="tool-tag ai">Claude</span>
+            <span class="tool-tag">Prompt template library</span>
+            <span class="tool-tag">Objective-aligned framing</span>
+          </div>
+          <span class="step-time">Time: 45–90 min · ~70% AI-drafted, 30% ID-shaped</span>
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Assessment development</div>
+          <p class="step-desc">MCQs and case-based items are drafted with AI support, then reviewed and revised against Bloom's taxonomy alignment, distractor quality, and item writing standards. Assessment review is a non-negotiable human gate — no AI-generated item ships without full editorial review.</p>
+          <div class="step-tools">
+            <span class="tool-tag ai">Claude</span>
+            <span class="tool-tag">Item review rubric</span>
+            <span class="tool-tag">Bloom's alignment check</span>
+          </div>
+          <span class="step-time">Time: 30–60 min · 50% AI draft / 50% human review</span>
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">Media production</div>
+          <p class="step-desc">Approved scripts go into Synthesia for AI avatar video or Vyond for animated explainers, depending on the content type. I configure presenters, pacing, and visual elements to match brand and learner context. AI generates the media; I direct it.</p>
+          <div class="step-tools">
+            <span class="tool-tag ai">Synthesia</span>
+            <span class="tool-tag ai">Vyond</span>
+            <span class="tool-tag">Brand and tone guide</span>
+          </div>
+          <span class="step-time">Time: 30–45 min · ~80% AI-generated</span>
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">LMS build and QA</div>
+          <p class="step-desc">Finished content goes into TalentLMS or Articulate Rise. I complete a final QA pass — checking objective alignment, learner flow, accessibility, and assessment logic — before any module is published. This stage is human-only.</p>
+          <div class="step-tools">
+            <span class="tool-tag">TalentLMS</span>
+            <span class="tool-tag">Articulate Rise / Storyline</span>
+            <span class="tool-tag">QA checklist</span>
+          </div>
+          <span class="step-time">Time: 45–60 min · No AI</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROMPT STRATEGY -->
+  <section class="section">
+    <p class="section-label">03 · Prompt Strategy</p>
+    <h2>How I prompt. Not what the tool does.</h2>
+    <p>The quality of AI-assisted content is a direct function of the quality of the prompt. I use a layered structure that grounds every request in instructional design logic — not just content requests.</p>
+
+    <div class="prompt-block">
+      <span class="prompt-label">Example — narration script prompt structure</span>
+      <p class="prompt-text">
+        Role: You are an instructional designer working with clinical SMEs.<br><br>
+        Objective: Write a 90-second narration script for a module on [topic].<br><br>
+        Audience: [credential level, prior knowledge, clinical context].<br><br>
+        Constraints: Plain language. No jargon without definition. Active voice. No more than 3 concepts per segment.<br><br>
+        Tone: Authoritative but accessible. Not lecture-like.<br><br>
+        Output format: Script only — no headers, no meta-commentary.
+      </p>
+      <p class="prompt-note">Each constraint maps to an instructional design principle, not a stylistic preference.</p>
+    </div>
+
+    <p>I maintain a small prompt library — roughly 12 templates — organized by content type (narration, scenario, MCQ stem, distractor, learning objective). Each template has been iterated over multiple projects and reflects what actually produces usable first drafts.</p>
+  </section>
+
+  <!-- HUMAN REVIEW GATES -->
+  <section class="section">
+    <p class="section-label">04 · Human Review Gates</p>
+    <h2>Where I always intervene — and why.</h2>
+    <p>AI-generated content has predictable failure modes in L&D: it flattens nuance, loses audience awareness, and produces assessment items that look correct but measure the wrong thing. These are the four points where I always intervene, regardless of how good the draft looks.</p>
+    <div class="gate-grid">
+      <div class="gate-card">
+        <div class="gate-title">Objective alignment check</div>
+        <p>Does every content element trace back to a stated learning objective? AI drafts often add "interesting" content that doesn't serve the learning goal.</p>
+      </div>
+      <div class="gate-card">
+        <div class="gate-title">Audience calibration</div>
+        <p>Is the language, example selection, and assumed prior knowledge appropriate for this specific learner? Generic outputs require clinical or contextual adjustment.</p>
+      </div>
+      <div class="gate-card">
+        <div class="gate-title">Assessment review</div>
+        <p>Every MCQ item is reviewed against item writing standards: stem clarity, distractor plausibility, single correct answer, absence of cueing language.</p>
+      </div>
+      <div class="gate-card">
+        <div class="gate-title">Factual verification</div>
+        <p>Any clinical, technical, or domain-specific claim is verified against primary sources before it appears in learner-facing content. No exceptions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER -->
+  <section class="section">
+    <p class="section-label">05 · Before and After</p>
+    <h2>What changed when I systematized this.</h2>
+    <div class="before-after">
+      <div class="ba-card">
+        <span class="ba-label before">Before — traditional ID workflow</span>
+        <ul>
+          <li>2–3 hours to produce a first-draft script</li>
+          <li>SME content required heavy editing before it was usable</li>
+          <li>Video production was an external dependency</li>
+          <li>Assessment items written entirely from scratch each time</li>
+          <li>Limited iteration — one draft, then SME review</li>
+        </ul>
+      </div>
+      <div class="ba-card">
+        <span class="ba-label after">After — AI-assisted workflow</span>
+        <ul>
+          <li>45–60 min to a reviewed, usable first draft</li>
+          <li>AI structures raw SME content before human editing begins</li>
+          <li>Video produced internally with Synthesia or Vyond</li>
+          <li>Assessment item drafts generated, then human-reviewed</li>
+          <li>Multiple iteration cycles possible within the same session</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="section">
+    <p class="section-label">06 · Results</p>
+    <h2>The numbers — and what they mean.</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <span class="stat">40%</span>
+        <span class="stat-label">Reduction in eLearning production time per module</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">90%</span>
+        <span class="stat-label">Learner satisfaction rate maintained across AI-assisted programs</span>
+      </div>
+      <div class="outcome-card">
+        <span class="stat">12+</span>
+        <span class="stat-label">Reusable prompt templates built and actively maintained</span>
+      </div>
+    </div>
+    <p style="margin-top:20px;">The 40% time savings isn't from cutting corners. It comes from eliminating the low-value parts of the process — blank-page drafting, manual reformatting, and waiting for external media production — so more time goes to the high-value parts: SME relationships, quality review, and instructional alignment. That's the actual goal of AI integration in L&D.</p>
+  </section>
+
+  <div class="pullquote">
+    <p>AI didn't change what good instructional design looks like. It changed how long it takes to get there.</p>
+  </div>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <p class="section-label">07 · Skills Demonstrated</p>
+    <h2>What this workflow requires.</h2>
+    <div class="tags">
+      <span class="tag">AI-Augmented ID</span>
+      <span class="tag">Prompt Engineering</span>
+      <span class="tag">Instructional Design (ADDIE)</span>
+      <span class="tag">Assessment Development</span>
+      <span class="tag">Synthesia</span>
+      <span class="tag">Vyond</span>
+      <span class="tag">Quality Assurance</span>
+      <span class="tag">Workflow Design</span>
+      <span class="tag">Content Governance</span>
+      <span class="tag">Adult Learning Theory</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div>
+    <div class="footer-name">Emily Gildner</div>
+    <div class="footer-role">Education & Training Program Manager · L&D Strategy & AI Integration</div>
+  </div>
+  <div class="nav-hint">AI Workflow Case Note</div>
+</footer>
+
+</body>
+</html>
