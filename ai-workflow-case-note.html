@@ -131,7 +131,7 @@
   <div class="header-inner">
     <p class="byline">AI Workflow Case Note · Emily Gildner</p>
     <h1>How I Use AI to Design<br><em>Better Content, Faster</em></h1>
-    <p class="header-sub">A documented workflow showing how I integrate AI tools into instructional design — with the prompt strategy, human review checkpoints, and time math behind it.</p>
+    <p class="header-sub">A documented workflow showing how I integrate AI tools into instructional design, with the prompt strategy, human review checkpoints, and time math behind it.</p>
     <div class="meta-strip">
       <div class="meta-item">
         <span class="meta-label">Primary Tools</span>
@@ -155,8 +155,8 @@
   <section class="section">
     <p class="section-label">01 · Context</p>
     <h2>The problem with "I use AI tools."</h2>
-    <p>Most L&D professionals say they use AI. Few have a documented, repeatable process for how. The difference matters — both for quality control and for what you can actually teach others to do.</p>
-    <p>This case note documents the AI-assisted instructional design workflow I've developed across projects at Inteleos, including the Global CHIVA Program and internal eLearning builds. It is not a tool list. It is a process — with defined inputs, deliberate prompting, and human judgment at every critical gate.</p>
+    <p>Most L&D professionals say they use AI. Few have a documented, repeatable process for how. The difference matters, both for quality control and for what you can actually teach others to do.</p>
+    <p>This case note documents the AI-assisted instructional design workflow I've developed across programs at a healthcare credentialing organization, including a global medical education initiative and internal eLearning builds. It is not a tool list. It is a process, with defined inputs, deliberate prompting, and human judgment at every critical gate.</p>
     <div class="callout">
       <p>Principle: AI accelerates the work I already know how to do. It does not replace the instructional design expertise behind it. Every output is reviewed, reshaped, and owned by me before it touches a learner.</p>
     </div>
@@ -173,7 +173,7 @@
         <div class="step-dot">1</div>
         <div class="step-body">
           <div class="step-title">Content intake and context-setting</div>
-          <p class="step-desc">Before touching any AI tool, I define the learning objective, audience, and constraints. I pull in raw SME content — slide decks, clinical notes, recorded meetings — and create a brief that anchors the entire build. This stage is human-only.</p>
+          <p class="step-desc">Before touching any AI tool, I define the learning objective, audience, and constraints. I pull in raw SME content, including slide decks, clinical notes, and recorded meetings, and create a brief that anchors the entire build. This stage is human-only.</p>
           <div class="step-tools">
             <span class="tool-tag">Learning objective framework</span>
             <span class="tool-tag">SME source materials</span>
@@ -200,7 +200,7 @@
         <div class="step-dot">3</div>
         <div class="step-body">
           <div class="step-title">Content drafting with structured prompts</div>
-          <p class="step-desc">I use Claude to draft module content — narration scripts, scenario setups, and learning checks — using a layered prompting approach. I do not use a single "write me a module" prompt. Each component gets its own focused input, with the learning objective and audience context baked in.</p>
+          <p class="step-desc">I use Claude to draft module content, narration scripts, scenario setups, and learning checks, using a layered prompting approach. I do not use a single "write me a module" prompt. Each component gets its own focused input, with the learning objective and audience context baked in.</p>
           <div class="step-tools">
             <span class="tool-tag ai">Claude</span>
             <span class="tool-tag">Prompt template library</span>
@@ -214,7 +214,7 @@
         <div class="step-dot">4</div>
         <div class="step-body">
           <div class="step-title">Assessment development</div>
-          <p class="step-desc">MCQs and case-based items are drafted with AI support, then reviewed and revised against Bloom's taxonomy alignment, distractor quality, and item writing standards. Assessment review is a non-negotiable human gate — no AI-generated item ships without full editorial review.</p>
+          <p class="step-desc">MCQs and case-based items are drafted with AI support, then reviewed and revised against Bloom's taxonomy alignment, distractor quality, and item writing standards. Assessment review is a non-negotiable human gate, no AI-generated item ships without full editorial review.</p>
           <div class="step-tools">
             <span class="tool-tag ai">Claude</span>
             <span class="tool-tag">Item review rubric</span>
@@ -242,7 +242,7 @@
         <div class="step-dot">6</div>
         <div class="step-body">
           <div class="step-title">LMS build and QA</div>
-          <p class="step-desc">Finished content goes into TalentLMS or Articulate Rise. I complete a final QA pass — checking objective alignment, learner flow, accessibility, and assessment logic — before any module is published. This stage is human-only.</p>
+          <p class="step-desc">Finished content goes into TalentLMS or Articulate Rise. I complete a final QA pass, checking objective alignment, learner flow, accessibility, and assessment logic, before any module is published. This stage is human-only.</p>
           <div class="step-tools">
             <span class="tool-tag">TalentLMS</span>
             <span class="tool-tag">Articulate Rise / Storyline</span>
@@ -259,28 +259,28 @@
   <section class="section">
     <p class="section-label">03 · Prompt Strategy</p>
     <h2>How I prompt. Not what the tool does.</h2>
-    <p>The quality of AI-assisted content is a direct function of the quality of the prompt. I use a layered structure that grounds every request in instructional design logic — not just content requests.</p>
+    <p>The quality of AI-assisted content is a direct function of the quality of the prompt. I use a layered structure that grounds every request in instructional design logic, not just content requests.</p>
 
     <div class="prompt-block">
-      <span class="prompt-label">Example — narration script prompt structure</span>
+      <span class="prompt-label">Example: narration script prompt structure</span>
       <p class="prompt-text">
         Role: You are an instructional designer working with clinical SMEs.<br><br>
         Objective: Write a 90-second narration script for a module on [topic].<br><br>
         Audience: [credential level, prior knowledge, clinical context].<br><br>
         Constraints: Plain language. No jargon without definition. Active voice. No more than 3 concepts per segment.<br><br>
         Tone: Authoritative but accessible. Not lecture-like.<br><br>
-        Output format: Script only — no headers, no meta-commentary.
+        Output format: Script only, no headers, no meta-commentary.
       </p>
       <p class="prompt-note">Each constraint maps to an instructional design principle, not a stylistic preference.</p>
     </div>
 
-    <p>I maintain a small prompt library — roughly 12 templates — organized by content type (narration, scenario, MCQ stem, distractor, learning objective). Each template has been iterated over multiple projects and reflects what actually produces usable first drafts.</p>
+    <p>I maintain a small prompt library, roughly 12 templates, organized by content type (narration, scenario, MCQ stem, distractor, learning objective). Each template has been iterated over multiple projects and reflects what actually produces usable first drafts.</p>
   </section>
 
   <!-- HUMAN REVIEW GATES -->
   <section class="section">
     <p class="section-label">04 · Human Review Gates</p>
-    <h2>Where I always intervene — and why.</h2>
+    <h2>Where I always intervene, and why.</h2>
     <p>AI-generated content has predictable failure modes in L&D: it flattens nuance, loses audience awareness, and produces assessment items that look correct but measure the wrong thing. These are the four points where I always intervene, regardless of how good the draft looks.</p>
     <div class="gate-grid">
       <div class="gate-card">
@@ -308,17 +308,17 @@
     <h2>What changed when I systematized this.</h2>
     <div class="before-after">
       <div class="ba-card">
-        <span class="ba-label before">Before — traditional ID workflow</span>
+        <span class="ba-label before">Before, traditional ID workflow</span>
         <ul>
           <li>2–3 hours to produce a first-draft script</li>
           <li>SME content required heavy editing before it was usable</li>
           <li>Video production was an external dependency</li>
           <li>Assessment items written entirely from scratch each time</li>
-          <li>Limited iteration — one draft, then SME review</li>
+          <li>Limited iteration, one draft, then SME review</li>
         </ul>
       </div>
       <div class="ba-card">
-        <span class="ba-label after">After — AI-assisted workflow</span>
+        <span class="ba-label after">After, AI-assisted workflow</span>
         <ul>
           <li>45–60 min to a reviewed, usable first draft</li>
           <li>AI structures raw SME content before human editing begins</li>
@@ -333,7 +333,7 @@
   <!-- OUTCOMES -->
   <section class="section">
     <p class="section-label">06 · Results</p>
-    <h2>The numbers — and what they mean.</h2>
+    <h2>The numbers, and what they mean.</h2>
     <div class="outcomes-grid">
       <div class="outcome-card">
         <span class="stat">40%</span>
@@ -348,7 +348,7 @@
         <span class="stat-label">Reusable prompt templates built and actively maintained</span>
       </div>
     </div>
-    <p style="margin-top:20px;">The 40% time savings isn't from cutting corners. It comes from eliminating the low-value parts of the process — blank-page drafting, manual reformatting, and waiting for external media production — so more time goes to the high-value parts: SME relationships, quality review, and instructional alignment. That's the actual goal of AI integration in L&D.</p>
+    <p style="margin-top:20px;">The 40% time savings isn't from cutting corners. It comes from eliminating the low-value parts of the process, blank-page drafting, manual reformatting, and waiting for external media production, so more time goes to the high-value parts: SME relationships, quality review, and instructional alignment. That's the actual goal of AI integration in L&D.</p>
   </section>
 
   <div class="pullquote">
