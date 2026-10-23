@@ -579,6 +579,179 @@
     margin-right: 10px;
   }
 
+  /* ── APPROACH ── */
+  .approach {
+    padding: 100px 40px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .approach-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .approach-header p {
+    font-size: 15px;
+    color: var(--slate);
+    max-width: 600px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 36px 0 20px;
+    list-style: none;
+  }
+
+  .step {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px 20px;
+  }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--teal);
+    display: block;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  .spine-note {
+    font-size: 14px;
+    color: var(--slate);
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 44px;
+  }
+
+  .spine-note strong { color: var(--teal-mid); font-weight: 500; }
+
+  .crosswalk-head h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .crosswalk-head p {
+    font-size: 14px;
+    color: var(--slate);
+    max-width: 620px;
+    margin-bottom: 20px;
+  }
+
+  .crosswalk {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 13.5px;
+  }
+
+  .crosswalk th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    background: var(--teal-light);
+    padding: 12px 18px;
+  }
+
+  .crosswalk td {
+    padding: 14px 18px;
+    color: var(--slate);
+    border-top: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  .crosswalk td:first-child { color: var(--ink); font-weight: 500; }
+
+  .crosswalk-note {
+    font-size: 12px;
+    color: var(--slate);
+    margin-top: 10px;
+  }
+
+  .checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .check {
+    font-size: 13.5px;
+    color: var(--slate);
+    background: var(--gold-light);
+    border: 1px solid #f0d9b5;
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+
+  .check strong { color: var(--ink); font-weight: 500; display: block; margin-bottom: 2px; }
+
+  .toolbox {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .toolbox-lede {
+    font-size: 14px;
+    color: var(--slate);
+    margin-bottom: 18px;
+  }
+
+  .tool-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 6px;
+    margin-bottom: 12px;
+  }
+
+  .tool-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    width: 120px;
+    flex-shrink: 0;
+  }
+
   /* ── CASE STUDIES ── */
   .work {
     padding: 100px 40px;
@@ -867,6 +1040,26 @@
     .ai-work { padding-top: 72px; padding-bottom: 72px; }
     .pillar { padding: 26px 24px; }
     .pillar-list li { flex-direction: column; gap: 8px; }
+    .approach { padding: 72px 24px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .checks { grid-template-columns: 1fr; }
+    .tool-label { width: 100%; }
+    .crosswalk thead { display: none; }
+    .crosswalk, .crosswalk tbody, .crosswalk tr, .crosswalk td { display: block; }
+    .crosswalk td { border-top: none; padding: 4px 18px; }
+    .crosswalk td:first-child { padding-top: 16px; }
+    .crosswalk td:last-child { padding-bottom: 16px; }
+    .crosswalk tr + tr { border-top: 1px solid var(--rule); }
+    .crosswalk td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal-mid);
+      margin-bottom: 2px;
+    }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
     .expertise-grid { grid-template-columns: 1fr 1fr; }
     .case-card { grid-template-columns: 1fr; padding: 26px 24px; }
@@ -1023,6 +1216,98 @@
         <p class="pillar-principle"><span>Principle</span>AI drafts, a subject-matter expert decides.</p>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach" id="approach">
+  <div class="approach-header reveal">
+    <p class="section-label">How I Design</p>
+    <h2>Outcomes first. Evidence second. Content last.</h2>
+    <p>Every program starts with what people must be able to do and what would prove it. Content comes after that, and only what closes the gap.</p>
+  </div>
+
+  <ol class="steps">
+    <li class="step reveal">
+      <span class="step-num">1</span>
+      <span class="step-title">Competency</span>
+      <span class="step-desc">Define what proficient looks like at each level, in observable behavior.</span>
+    </li>
+    <li class="step reveal">
+      <span class="step-num">2</span>
+      <span class="step-title">Outcomes</span>
+      <span class="step-desc">Write measurable learning objectives from those behaviors.</span>
+    </li>
+    <li class="step reveal">
+      <span class="step-num">3</span>
+      <span class="step-title">Evidence</span>
+      <span class="step-desc">Decide what shows people can do it, before anything is built.</span>
+    </li>
+    <li class="step reveal">
+      <span class="step-num">4</span>
+      <span class="step-title">Content</span>
+      <span class="step-desc">Build only what connects each outcome to its evidence.</span>
+    </li>
+  </ol>
+
+  <p class="spine-note reveal"><strong>The competency framework is the spine.</strong> It gives every program one shared definition of proficient, so objectives, content, and assessment trace back to the same behaviors and gaps show up before launch.</p>
+
+  <div class="crosswalk-head reveal">
+    <h3>The crosswalk</h3>
+    <p>A crosswalk maps every outcome to the content that teaches it and the assessment that checks it. That is how I make sure nothing is taught without a purpose and nothing is assessed that wasn't taught.</p>
+  </div>
+
+  <table class="crosswalk reveal">
+    <thead>
+      <tr><th scope="col">Outcome</th><th scope="col">Content that teaches it</th><th scope="col">Assessment that checks it</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Outcome">Check AI-drafted output against its source before using it</td>
+        <td data-label="Content that teaches it">Worked example and a short practice scenario</td>
+        <td data-label="Assessment that checks it">Scenario item: find the unsupported claim in a draft</td>
+      </tr>
+      <tr>
+        <td data-label="Outcome">Decide which tasks AI should not draft</td>
+        <td data-label="Content that teaches it">Decision guide with a sensitive-task list</td>
+        <td data-label="Assessment that checks it">Case-based item: sort tasks and justify each call</td>
+      </tr>
+      <tr>
+        <td data-label="Outcome">Document how AI contributed to a work product</td>
+        <td data-label="Content that teaches it">Job aid and a template</td>
+        <td data-label="Assessment that checks it">Work sample reviewed against a checklist</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="crosswalk-note">Illustrative example at the AI-Enabled tier.</p>
+
+  <div class="checks reveal">
+    <p class="check"><strong>Outcome with no content or no assessment</strong>That is a gap. I close it before launch.</p>
+    <p class="check"><strong>Content or assessment with no outcome</strong>That gets cut.</p>
+  </div>
+
+  <div class="toolbox reveal">
+    <p class="toolbox-lede">Tools follow the design, not the other way around. These are the ones I build and deliver with.</p>
+    <div class="tool-row">
+      <span class="tool-label">Platforms</span>
+      <span class="case-tag">TalentLMS</span>
+      <span class="case-tag">Docebo</span>
+      <span class="case-tag">Paylocity</span>
+      <span class="case-tag">Cornerstone</span>
+    </div>
+    <div class="tool-row">
+      <span class="tool-label">Authoring</span>
+      <span class="case-tag">Articulate Rise</span>
+      <span class="case-tag">Storyline</span>
+      <span class="case-tag">Reach</span>
+      <span class="case-tag">Adobe Captivate</span>
+    </div>
+    <div class="tool-row">
+      <span class="tool-label">Video and media</span>
+      <span class="case-tag">Synthesia</span>
+      <span class="case-tag">Vyond</span>
+      <span class="case-tag">Camtasia</span>
     </div>
   </div>
 </section>
