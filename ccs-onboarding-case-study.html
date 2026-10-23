@@ -414,9 +414,60 @@
     .pullquote { padding: 28px 24px; }
     .footer { flex-direction: column; gap: 12px; text-align: center; }
   }
+
+  /* ── NAV (added for navigation back to home) ── */
+  nav.site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250,250,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  nav.site-nav .nav-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: #1a1a2e;
+    text-decoration: none;
+  }
+  nav.site-nav .nav-back {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #4a5568;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav.site-nav .nav-back:hover { color: #2a7f7f; }
+  nav.site-nav a:focus-visible { outline: 2px solid #2a7f7f; outline-offset: 3px; border-radius: 4px; }
+  .header { padding-top: 120px !important; }
+  @media (max-width: 700px) { nav.site-nav { padding: 0 24px; } }
+
+  /* ── Icons: numerals instead of emoji ── */
+  .icon, .c-icon, .card-icon, .cap-icon, .constraint-icon {
+    font-family: 'DM Serif Display', serif !important;
+    font-size: 1.05rem !important;
+    font-style: normal;
+    color: #2a7f7f;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
 </style>
 </head>
 <body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-name">Emily Gildner</a>
+  <a href="index.html#work" class="nav-back">&larr; All case studies</a>
+</nav>
+
+
 
 <header class="header">
   <div class="header-inner">
@@ -461,7 +512,7 @@
     <h2>Building for a role I wasn't in, in an org that works in silos.</h2>
 
     <div class="constraint-block">
-      <span class="constraint-icon">🔒</span>
+      <span class="constraint-icon">&#9670;</span>
       <p><strong>The core constraint:</strong> I wasn't a CCS and couldn't easily consult with those who were. That meant I had to work from first principles, using instructional design expertise, role analysis, and what I could access about the work itself to reverse-engineer what a new hire actually needs to know in week one, month one, and beyond.</p>
     </div>
 
@@ -475,17 +526,17 @@
 
     <div class="components-grid">
       <div class="component-card">
-        <span class="c-icon">🎓</span>
+        <span class="c-icon">01</span>
         <span class="c-label">eLearning Modules</span>
         <span class="c-desc">Core concepts and standards delivered as structured self-paced content</span>
       </div>
       <div class="component-card">
-        <span class="c-icon">📄</span>
+        <span class="c-icon">02</span>
         <span class="c-label">Reference Documents</span>
         <span class="c-desc">Job aids, process guides, and role-specific reference materials</span>
       </div>
       <div class="component-card">
-        <span class="c-icon">🎥</span>
+        <span class="c-icon">03</span>
         <span class="c-label">Video Walkthroughs</span>
         <span class="c-desc">Demonstrations of tools, systems, and workflows in context</span>
       </div>
@@ -528,8 +579,8 @@
         <span class="stat-label">Formal onboarding program ever built for this role</span>
       </div>
       <div class="outcome-card">
-        <span class="stat">∞</span>
-        <span class="stat-label">Reusable: template duplicates for every new hire</span>
+        <span class="stat">1</span>
+        <span class="stat-label">Template that duplicates for every new hire</span>
       </div>
       <div class="outcome-card">
         <span class="stat">Clear</span>
@@ -561,7 +612,7 @@
 <footer class="footer">
   <div>
     <div class="footer-name">Emily Gildner</div>
-    <div class="footer-role">L&D Program Manager · Curriculum Design · Education Strategy</div>
+    <div class="footer-role">Program Manager &amp; Instructional Designer · Learning Design &amp; AI Capability</div>
   </div>
 
 </footer>
