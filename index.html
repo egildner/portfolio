@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emily Gildner | Portfolio</title>
+<title>Emily Gildner | Learning Design & AI Capability</title>
+<meta name="description" content="Learning designer and program manager building AI capability, competency frameworks, and human-AI workflows for healthcare credentialing and professional education.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Emily Gildner | Learning Design & AI Capability">
+<meta property="og:description" content="Learning systems, competency frameworks, and human-AI workflows, with a subject-matter expert making the call.">
+<meta property="og:url" content="https://egildner.github.io/portfolio/">
+<meta name="theme-color" content="#1a1a2e">
+<script>document.documentElement.classList.add('js');</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -72,6 +79,26 @@
   }
 
   .nav-links a:hover { color: var(--teal); }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 200;
+    background: var(--ink);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .skip-link:focus { left: 16px; }
+
+  a:focus-visible, .case-card:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 
   /* ── HERO ── */
   .hero {
@@ -179,6 +206,32 @@
     border-radius: 20px;
     letter-spacing: 0.02em;
   }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.45s forwards;
+  }
+
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .hero-btn.primary { background: var(--teal); color: white; border: 1.5px solid var(--teal); }
+  .hero-btn.primary:hover { background: var(--teal-mid); border-color: var(--teal-mid); }
+  .hero-btn.ghost { color: rgba(255,255,255,0.75); border: 1.5px solid rgba(255,255,255,0.18); }
+  .hero-btn.ghost:hover { color: white; border-color: rgba(255,255,255,0.4); }
 
   .hero-scroll {
     display: flex;
@@ -326,11 +379,26 @@
     border-color: rgba(42,127,127,0.4);
   }
 
-  .expertise-card .e-icon {
-    font-size: 20px;
+  .expertise-card .e-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
     display: block;
     margin-bottom: 12px;
+    letter-spacing: 0.04em;
   }
+
+  .expertise-card.featured {
+    grid-column: 1 / -1;
+    padding: 28px 28px;
+    background: rgba(42,127,127,0.12);
+    border-color: rgba(42,127,127,0.35);
+  }
+
+  .expertise-card.featured .e-title { font-size: 16px; }
+  .expertise-card.featured .e-desc { color: rgba(255,255,255,0.65); font-size: 14px; max-width: 640px; }
+
+  .expertise-card .e-desc { color: rgba(255,255,255,0.55); }
 
   .expertise-card .e-title {
     font-size: 14px;
@@ -344,6 +412,171 @@
     font-size: 13px;
     color: rgba(255,255,255,0.45);
     line-height: 1.6;
+  }
+
+  /* ── AI WORK ── */
+  .ai-work {
+    background: var(--mist);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 100px 40px;
+  }
+
+  .ai-work-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .ai-work-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .ai-work-header p {
+    font-size: 15px;
+    color: var(--slate);
+    max-width: 600px;
+  }
+
+  .status-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 36px;
+    font-size: 12px;
+    color: var(--slate);
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .status::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .status.shipped  { background: var(--teal-light); color: var(--teal-mid); border-color: #bfe3e3; }
+  .status.piloting { background: var(--gold-light); color: #8a5d12; border-color: #f0d9b5; }
+  .status.dev      { background: white; color: var(--slate); border: 1px dashed #b8c2d0; }
+
+  .pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pillar {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 34px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--teal);
+  }
+
+  .pillar-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin-bottom: 10px;
+  }
+
+  .pillar-num {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    width: 100%;
+  }
+
+  .pillar h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .pillar-lede {
+    font-size: 15px;
+    color: var(--slate);
+    max-width: 640px;
+    margin-bottom: 18px;
+  }
+
+  .pillar-list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pillar-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  .pillar-list li strong { color: var(--ink); font-weight: 500; }
+
+  .pillar-list a {
+    color: var(--teal-mid);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(42,127,127,0.35);
+  }
+
+  .pillar-list a:hover { border-bottom-color: var(--teal-mid); }
+
+  .pillar-principle {
+    margin-top: 18px;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--teal-mid);
+  }
+
+  .pillar-principle span {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-right: 10px;
   }
 
   /* ── CASE STUDIES ── */
@@ -602,23 +835,38 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .reveal {
+  .js .reveal {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
-  .reveal.visible {
+  .js .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal, .hero-eyebrow, .hero h1, .hero-desc, .hero-pills, .hero-cta, .hero-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
   }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
     nav { padding: 0 24px; }
-    .nav-links { display: none; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 12px; }
+    .nav-links li:first-child { display: none; }
     .hero, .about, .work, .contact { padding-left: 24px; padding-right: 24px; }
-    .expertise { padding-left: 24px; padding-right: 24px; }
+    .expertise, .ai-work { padding-left: 24px; padding-right: 24px; }
+    .ai-work { padding-top: 72px; padding-bottom: 72px; }
+    .pillar { padding: 26px 24px; }
+    .pillar-list li { flex-direction: column; gap: 8px; }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
     .expertise-grid { grid-template-columns: 1fr 1fr; }
     .case-card { grid-template-columns: 1fr; padding: 26px 24px; }
@@ -634,10 +882,12 @@
 <body>
 
 <!-- NAV -->
+<a href="#about" class="skip-link">Skip to content</a>
 <nav>
   <a href="#" class="nav-name">Emily Gildner</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#ai-work">AI Work</a></li>
     <li><a href="#work">Case Studies</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -647,16 +897,20 @@
 <section class="hero">
   <div class="hero-circle-2"></div>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Portfolio · Learning Design · Systems & AI Enablement</p>
+    <p class="hero-eyebrow">Portfolio · Learning Design · AI Capability & Systems</p>
     <h1>Building learning systems<br>that <em>actually</em> stick.</h1>
-    <p class="hero-desc">I design and lead L&D programs, assessment infrastructure, and the AI-enabled systems that run them, bringing structure, rigor, and scalability to organizations that need learning to drive real performance.</p>
+    <p class="hero-desc">I design learning programs, competency frameworks, and the human-AI workflows around them. Domain expertise is the quality check, and a subject-matter expert makes the call.</p>
     <div class="hero-pills">
       <span class="pill">Instructional Design</span>
-      <span class="pill">Systems & Operations</span>
-      <span class="pill">AI Enablement</span>
+      <span class="pill">AI Capability Building</span>
+      <span class="pill">Human-AI Workflow Design</span>
+      <span class="pill">Competency Frameworks</span>
       <span class="pill">Assessment Development</span>
-      <span class="pill">L&D Program Leadership</span>
       <span class="pill">Program Management</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#ai-work" class="hero-btn primary">See the AI work</a>
+      <a href="#work" class="hero-btn ghost">Read the case studies</a>
     </div>
     <div class="hero-scroll">
       <span class="scroll-line"></span>
@@ -673,7 +927,7 @@
       <h2>I build L&D programs that perform and last.</h2>
       <p>With a background spanning instructional design, adult learning theory, and complex program operations, I sit at a rare intersection: the ability to design rigorous learning experiences and build the systems that make them run.</p>
       <p>I've led global L&D initiatives, built content operations infrastructure from scratch, and designed programs for high-stakes audiences, including healthcare professionals and credentialing organizations, where clarity and quality aren't optional. My work in medical credentialing has sharpened skills that transfer anywhere: precision, stakeholder management, and building for scale.</p>
-      <p>That same systems instinct now extends into AI. I design and deploy AI-enabled tools that run pieces of that infrastructure directly, not just support the people who do, always with a human review gate at every point where judgment matters.</p>
+      <p>That same systems instinct now extends into AI. I design the human-AI workflow: where AI fits in a process, who reviews what, and how outputs move between people and systems. A governance checkpoint comes before anything is built, and a human review step sits wherever judgment matters.</p>
       <p>Good L&D design is invisible. When a program works, learners don't notice the architecture. They just move forward with confidence.</p>
     </div>
     <div class="about-stats reveal">
@@ -686,9 +940,89 @@
         <span class="stat-desc">Reach: programs serving professional and clinical audiences internationally</span>
       </div>
       <div class="about-stat">
-        <span class="stat-num">3</span>
-        <span class="stat-desc">Distinct domains: instructional design · systems & AI-enabled operations · program management</span>
+        <span class="stat-num">40%</span>
+        <span class="stat-desc">Reduction in production time from a documented AI-augmented design workflow</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI WORK -->
+<section class="ai-work" id="ai-work">
+  <div class="ai-work-inner">
+    <div class="ai-work-header reveal">
+      <p class="section-label">AI Work</p>
+      <h2>AI designed into real work, with a person accountable for the result.</h2>
+      <p>Three areas I work in. Status is stated plainly on each item. Prototypes use fictional or generalized data, never real candidate or organizational data.</p>
+      <div class="status-legend" aria-label="Status key">
+        <span class="status shipped">Shipped</span>
+        <span class="status piloting">Piloting</span>
+        <span class="status dev">In development</span>
+      </div>
+    </div>
+
+    <div class="pillars">
+
+      <article class="pillar reveal">
+        <div class="pillar-head">
+          <span class="pillar-num">01</span>
+          <h3>Human-AI workflow design</h3>
+          <span class="status shipped">Shipped</span>
+        </div>
+        <p class="pillar-lede">I design the layer around the model: where AI fits in a process, who reviews what, and how outputs move between people and systems.</p>
+        <ul class="pillar-list">
+          <li><span><strong>AI risk and ethics screening tool and checklist.</strong> A governance checkpoint that sits in front of any AI use case before it is built.</span></li>
+          <li><span><strong>Decision brief generator and persona builder.</strong> Each has a defined human review step.</span></li>
+          <li><span><strong>Dummy-data discipline.</strong> Prototypes run on fictional or generalized data, never real candidate or organizational data.</span></li>
+        </ul>
+        <p class="pillar-principle"><span>Principle</span>Diagnose the constraint and map the workflow before choosing a tool.</p>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar-head">
+          <span class="pillar-num">02</span>
+          <h3>Systems thinking applied to how teams work</h3>
+          <span class="status shipped">Shipped, pull-based</span>
+        </div>
+        <p class="pillar-lede">I helped pilot a cross-functional team model built around a shared problem statement instead of a department boundary.</p>
+        <ul class="pillar-list">
+          <li>
+            <span><strong>Executive AI enablement and department workshops.</strong> I presented AI-enhanced systems thinking and ways of working, built on the Reshuffle framework, to the executive team. Departments then asked me to host their own workshops. Each one follows the same design: learning objectives, a pre-survey, a live or virtual discussion, a post-survey, and 30, 60, and 90 day metrics to track adoption and progress.</span>
+            <span class="status shipped">Shipped, department-requested</span>
+          </li>
+          <li><span><strong>Adoption by invitation.</strong> Teams across the organization have since asked for the same approach to surface friction points and bottlenecks. Nobody was told to use it.</span></li>
+          <li><span><strong>Design stance.</strong> People collaborate without sign-off on every step, while an empowered sponsor keeps the work connected to strategy.</span></li>
+          <li>
+            <span><strong>Reusable playbook and toolkit.</strong> Formalizing the pattern so teams can form around a shared goal on their own.</span>
+            <span class="status dev">In development</span>
+          </li>
+        </ul>
+        <p class="pillar-principle"><span>Principle</span>The smallest safe-to-try experiment, not the full transformation.</p>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar-head">
+          <span class="pillar-num">03</span>
+          <h3>Domain expertise as the guardrail</h3>
+        </div>
+        <p class="pillar-lede">Healthcare credentialing, assessment, and L&amp;D experience is the quality check on AI output.</p>
+        <ul class="pillar-list">
+          <li>
+            <span><strong>AI Competency Framework.</strong> Three tiers (AI-Aware, AI-Enabled, AI-Fluent) mapped to role clusters. Departments write their own behavioral examples.</span>
+            <span class="status piloting">Piloting in one department</span>
+          </li>
+          <li>
+            <span><strong>Assessment data narrative generator.</strong> Turns psychometric data into stakeholder-ready narratives, with human review.</span>
+            <span class="status dev">In progress, dummy data</span>
+          </li>
+          <li>
+            <span><strong>AI-assisted process improvement</strong> for learning product development, plus an L&amp;D triage system. <a href="ai-operations-case-study.html">Read the case study</a></span>
+            <span class="status shipped">Shipped</span>
+          </li>
+        </ul>
+        <p class="pillar-principle"><span>Principle</span>AI drafts, a subject-matter expert decides.</p>
+      </article>
+
     </div>
   </div>
 </section>
@@ -699,39 +1033,39 @@
     <p class="section-label reveal">Expertise</p>
     <h2 class="reveal">What I bring to learning, systems, and AI-enabled work.</h2>
     <div class="expertise-grid">
+      <div class="expertise-card featured reveal">
+        <span class="e-num">01</span>
+        <span class="e-title">AI Capability &amp; Responsible Use</span>
+        <span class="e-desc">Competency frameworks, human-AI workflows, and risk screening that keep AI use purposeful, reviewed, and tied to real work. Domain expertise is the guardrail.</span>
+      </div>
       <div class="expertise-card reveal">
-        <span class="e-icon">🎓</span>
+        <span class="e-num">02</span>
         <span class="e-title">Instructional Design</span>
         <span class="e-desc">Learner-centered design, tiered competency frameworks, and eLearning development for professional and clinical audiences.</span>
       </div>
       <div class="expertise-card reveal">
-        <span class="e-icon">⚙️</span>
-        <span class="e-title">Systems & Operations Architecture</span>
-        <span class="e-desc">Workflow design, data infrastructure, and project management systems that give teams visibility and reduce manual burden.</span>
-      </div>
-      <div class="expertise-card reveal">
-        <span class="e-icon">🤖</span>
-        <span class="e-title">AI-Enabled Design & Delivery</span>
-        <span class="e-desc">Building and deploying AI-assisted tools and workflows that accelerate instructional design and operational work, with human review at every gate that matters.</span>
-      </div>
-      <div class="expertise-card reveal">
-        <span class="e-icon">📝</span>
+        <span class="e-num">03</span>
         <span class="e-title">Assessment Development</span>
         <span class="e-desc">MCQ and case-based item writing, SME training, alignment to learning objectives, and quality review processes.</span>
       </div>
       <div class="expertise-card reveal">
-        <span class="e-icon">🌐</span>
+        <span class="e-num">04</span>
+        <span class="e-title">Systems &amp; Operations Architecture</span>
+        <span class="e-desc">Workflow design, data infrastructure, and project management systems that give teams visibility and reduce manual burden.</span>
+      </div>
+      <div class="expertise-card reveal">
+        <span class="e-num">05</span>
         <span class="e-title">Stakeholder Leadership</span>
         <span class="e-desc">Cross-functional SME facilitation, multi-stakeholder program delivery, and navigating complex organizational environments.</span>
       </div>
       <div class="expertise-card reveal">
-        <span class="e-icon">🏗</span>
+        <span class="e-num">06</span>
         <span class="e-title">Program Architecture</span>
         <span class="e-desc">Building programs from zero: phased roadmaps, scalable templates, and structures designed to outlast any single project.</span>
       </div>
       <div class="expertise-card reveal">
-        <span class="e-icon">🩺</span>
-        <span class="e-title">Healthcare & Credentialing</span>
+        <span class="e-num">07</span>
+        <span class="e-title">Healthcare &amp; Credentialing</span>
         <span class="e-desc">Deep domain experience in MOC, certification programs, and continuing education, a high-rigor environment that sharpens every skill.</span>
       </div>
     </div>
@@ -833,7 +1167,7 @@
       <div>
         <span class="case-num">06 · AI-Powered L&D Operations</span>
         <h3>Building an AI System to Run L&D Operations Without Manual Overhead</h3>
-        <p class="case-desc">How I designed and deployed an AI-powered triage and coordination system for L&D product development, one that manages a full workflow end-to-end without human intervention.</p>
+        <p class="case-desc">How I designed and deployed an AI-powered triage and coordination system for L&D product development, one that coordinates a full workflow end-to-end without manual overhead.</p>
         <div class="case-tags">
           <span class="case-tag">AI Orchestration</span>
           <span class="case-tag">Workflow Design</span>
@@ -867,7 +1201,7 @@
 <section class="contact" id="contact">
   <div class="contact-inner">
     <h2>Let's work<br><em>together.</em></h2>
-    <p>I'm open to conversations about senior roles in learning design, systems operations, or AI-enabled program delivery, in any industry where structure and quality matter. My background is in medical credentialing, but the skills translate.</p>
+    <p>I'm open to conversations about learning design, AI capability building, and systems work, in any industry where structure and quality matter. My background is in medical credentialing, but the skills translate.</p>
     <div class="contact-links">
       <a href="mailto:elgildner@gmail.com" class="contact-btn primary">
         ✉ Get in touch
