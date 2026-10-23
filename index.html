@@ -752,6 +752,71 @@
     flex-shrink: 0;
   }
 
+  .practice {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 30px 32px;
+    margin-top: 44px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .practice::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--teal);
+  }
+
+  .practice-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .practice-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin-bottom: 18px;
+  }
+
+  .practice-head h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .practice-rows { border-top: 1px solid var(--rule); }
+
+  .practice-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  .practice-row dt {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    padding-top: 3px;
+  }
+
   /* ── CASE STUDIES ── */
   .work {
     padding: 100px 40px;
@@ -1044,6 +1109,8 @@
     .steps { grid-template-columns: 1fr 1fr; }
     .checks { grid-template-columns: 1fr; }
     .tool-label { width: 100%; }
+    .practice { padding: 24px 22px; }
+    .practice-row { grid-template-columns: 1fr; gap: 4px; }
     .crosswalk thead { display: none; }
     .crosswalk, .crosswalk tbody, .crosswalk tr, .crosswalk td { display: block; }
     .crosswalk td { border-top: none; padding: 4px 18px; }
@@ -1099,6 +1166,7 @@
       <span class="pill">Human-AI Workflow Design</span>
       <span class="pill">Competency Frameworks</span>
       <span class="pill">Assessment Development</span>
+      <span class="pill">Leadership Program Design</span>
       <span class="pill">Program Management</span>
     </div>
     <div class="hero-cta">
@@ -1285,6 +1353,29 @@
   <div class="checks reveal">
     <p class="check"><strong>Outcome with no content or no assessment</strong>That is a gap. I close it before launch.</p>
     <p class="check"><strong>Content or assessment with no outcome</strong>That gets cut.</p>
+  </div>
+
+  <div class="practice reveal">
+    <p class="practice-eyebrow">In practice</p>
+    <div class="practice-head">
+      <h3>A leadership program for committee and council leaders</h3>
+      <span class="status shipped">Shipped, in continuous improvement</span>
+    </div>
+    <dl class="practice-rows">
+      <div class="practice-row">
+        <dt>What I built</dt>
+        <dd>Six modules, including a capstone and a communications playbook, for a small group of leaders in high-authority committee and council roles. It was well received.</dd>
+      </div>
+      <div class="practice-row">
+        <dt>What it showed</dt>
+        <dd>The program surfaced which skills and responsibilities the role actually requires, including some that sit outside the position description.</dd>
+      </div>
+      <div class="practice-row">
+        <dt>What changed</dt>
+        <dd>I updated the program with scenario-based assessment and real-world examples, so leaders practice what they need to succeed in the role. I also used that evidence to improve the competency framework, and the program now aligns to it. It is complete and still being refined.</dd>
+      </div>
+    </dl>
+    <p class="pillar-principle"><span>Principle</span>Evidence from the program goes back into the framework.</p>
   </div>
 
   <div class="toolbox reveal">
